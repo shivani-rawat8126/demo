@@ -1,0 +1,30 @@
+version: '3'
+
+services:
+  
+  db:
+    image: mysql:5.7.22
+
+    environment:
+      MYSQL_DATABASE: devops-test
+      MYSQL_ROOT_PASSWORD: Admin@342
+
+    ports: 
+      - "9907:3306"
+  
+
+  web:
+    build: .
+    container_name: demo-php1
+    depends_on:
+      - db
+    volumes:
+      -  ./:/var/www/html/
+    ports:
+     - "8083:80"
+    stdin_open: true
+    tty: true
+
+# networks:
+#   app-network:
+#     driver: bridge
